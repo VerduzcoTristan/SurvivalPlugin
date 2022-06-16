@@ -1,0 +1,2 @@
+# SurvivalPlugin
+My survival plugin
