@@ -1,0 +1,5 @@
+name: ${project.name}
+main: ${project.groupId}.${project.artifactId}
+version: ${version}
+api-version: 1.17
+author: DevMcLovin
