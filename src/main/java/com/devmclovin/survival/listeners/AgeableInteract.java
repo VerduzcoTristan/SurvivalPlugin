@@ -13,7 +13,8 @@ public class AgeableInteract implements Listener {
     /**
      * Replant ageable blocks with a right click
      * EXAMPLES: Carrots, Wheat, Potatoes
-     * TODO test cocoa beans
+     * TODO test cocoa beans && Disable activation for stalks and such
+     * disable melon stem, pumpkin stem, bamboo,
      */
     @EventHandler
     public void onReplant(PlayerInteractEvent event) {
@@ -35,5 +36,4 @@ public class AgeableInteract implements Listener {
         }
 
     }
-
 }
