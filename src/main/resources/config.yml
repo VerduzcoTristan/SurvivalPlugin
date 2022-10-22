@@ -1,2 +1,6 @@
-#  All beacons span the entire vertical height of the world.
-#beacon-radius: 100
+beacon-range:
+  t1: 20
+  t2: 30
+  t3: 40
+  t4: 50
+

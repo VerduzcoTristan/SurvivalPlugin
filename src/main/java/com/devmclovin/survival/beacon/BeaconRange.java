@@ -3,6 +3,8 @@ package com.devmclovin.survival.beacon;
 import com.destroystokyo.paper.event.block.BeaconEffectEvent;
 import com.devmclovin.survival.SurvivalPlugin;
 import org.bukkit.block.Beacon;
+import org.bukkit.block.Block;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -10,34 +12,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BeaconRange implements Listener {
-    private final SurvivalPlugin plugin;
     private final List<Beacon> beaconList;
+    private final SurvivalPlugin plugin;
 
-    //todo check for beacon activate event
     public BeaconRange(SurvivalPlugin plugin) {
-        this.plugin = plugin;
         this.beaconList = new ArrayList<>();
+        this.plugin = plugin;
     }
 
-    public void updateBeaconRange(String world, int x, int y, int z) {
-        Beacon beacon = (Beacon) plugin.getServer().getWorld(world).getBlockAt(x, y, z);
-        int tier = beacon.getTier();
-        double range = beacon.getEffectRange();
-        System.out.println("tier: " + tier);
-        System.out.println("range: " + range);
-        //beacon.setEffectRange();
+    public void updateBeaconRange(Block block) {
+
+        ConfigurationSection config = plugin.getConfig().getConfigurationSection("beacon-range");
+
+        Beacon beacon = (Beacon) block.getState();
+
+        String range = String.valueOf(beacon.getTier());
+
+        beacon.setEffectRange(config.getInt("t" + range));
+
+        beacon.update();
+        beaconList.add(beacon);
     }
 
     @EventHandler
-    public void onBeaconEffect(BeaconEffectEvent event){
-
+    public void onBeaconEffect(BeaconEffectEvent event) {
+        Block beacon =  event.getBlock();
+        if (!beaconList.contains(beacon)) {
+            updateBeaconRange(beacon);
+        }
     }
-
-    /*
-    @EventHandler
-    public void onChunkLoad(ChunkLoadEvent event) {
-        ChunkSnapshot snapshot = event.getChunk().getChunkSnapshot(true, false, false);
-
-        new BeaconRunnable(snapshot, this, plugin).runTaskAsynchronously(plugin);
-    }*/
 }

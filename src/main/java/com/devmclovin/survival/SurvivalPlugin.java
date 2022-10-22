@@ -8,16 +8,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class SurvivalPlugin extends JavaPlugin {
 
-    //todo change drop rates for wither skulls and drop rates of ancient depbri scrap
-    // BEACON EXTENDER
-    // Anvil too expensive limit removed
+    // todo Anvil too expensive limit removed
     @Override
     public void onEnable() {
         // Plugin startup logic
+        saveDefaultConfig();
         getServer().getPluginManager().registerEvents(new AgeableInteract(), this);
         getServer().getPluginManager().registerEvents(new NetheriteLuck(), this);
         getServer().getPluginManager().registerEvents(new SkullLuck(), this);
-        getServer().getPluginManager().registerEvents(new BeaconRange(this, beaconList), this);
+        getServer().getPluginManager().registerEvents(new BeaconRange(this), this);
         //getServer().getPluginManager().registerEvents(new TeleportListener(), this);
         //getServer().getPluginManager().registerEvents(new BetterBeacon(), this);
     }
